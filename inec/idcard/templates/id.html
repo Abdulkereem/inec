@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body{
+            background-color: #d7d6d3;
+        }
+        .content{
+            width: 100%;
+            background-color: #fff;
+        }
+        .body{
+            width: 25%;
+            height: auto;
+            margin: 10px;
+            border-radius: 2px;
+            border: 1px solid black;
+            float: left;
+            background-color: #fff;
+        }
+        .head{
+            background-color: red;
+            float:right;
+            margin: 5px;
+            height: 110px;
+            padding-top: 5px;
+
+        }
+        .h4{
+            color: #fff;
+            text-align: left;
+            margin: 10px;
+            margin-left: 1px;
+            margin-bottom: 20px;
+            width: 69%;
+            float: right;
+            font-size: 20px;
+            font-family: sans-serif;
+            letter-spacing: 0.5px;
+            padding: 1px;
+        }
+        .header-img{
+            width: 20%;
+            height: 60%;
+            margin: 10px;
+        }
+        .body-content{
+            width: 100%;
+
+        }
+        .body-head{
+            color: forestgreen;
+            font-size: 16px;
+            font-family: sans-serif;
+            letter-spacing: 1px;
+            text-align: center;
+            width: 96%;
+            margin-bottom: 6px;
+        }
+        .body-id-content{
+            border: 6px solid forestgreen;
+            height: auto;
+            width: 90%;
+            margin: 0 auto;
+            margin-top: 4px;
+            border-radius: 10px;
+        }
+        .name{
+            font-family: sans-serif;
+            margin-left: 6px;
+            width: 66%;
+            padding-top: 30px;
+            font-size: 16px;
+            float: left;
+            margin-bottom: auto;
+            letter-spacing: 0.5px;
+        }
+        .body-img{
+            width: 26%;
+            height: 100px;
+            padding-top: 5px;
+            margin-top: 3px;
+            margin-bottom: 0px;
+
+            
+        }
+        .p{
+           margin: 2px;
+           margin-bottom: 2px;
+           
+        }
+        .body-content-stomach{
+            margin: 2px;
+            margin-bottom: 50px;
+        }
+        .stomach-h4{
+            color: forestgreen;
+            margin: 8px;
+            font-family: sans-serif;
+            font-size: 20px;
+            margin-bottom: 2px;
+            letter-spacing: 0.5px;
+
+        }
+        .stomach-h2{
+            color: forestgreen;
+            font-family: sans-serif;
+            font-size: 50px;
+            margin-top: 1px;
+            margin-bottom: 1px;
+            letter-spacing: 0.5px;
+            /* font-weight: bold; */
+            font-weight: 900;
+        }
+        .stomach-h3{
+            color: forestgreen;
+            font-family: sans-serif;
+            font-size: 25px;
+            margin-top: 1px;
+            margin-bottom: 1px;
+            letter-spacing: 0.5px;
+            /* font-weight: bold; */
+            font-weight: 900;
+        }
+        .footer{
+            background-color: forestgreen;
+            width: 98%;
+            height: 25px;
+            margin: 4px;
+            color: #fff;
+            text-align: center;
+            font-family: sans-serif;
+            padding-top: 6px;
+        }
+        .footer-p{
+            margin-top: 10px;
+        }
+    </style>
+    <title>ID CARD</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+
+</head>
+<body>
+    <div id="content" class="content">
+        {% for i in ids %}
+        <div class="body">
+            <div class="head">
+                <img src="{{i.logo.url}}" alt="" class="header-img">
+                <h4 class="h4">
+                    CIVIL SOCIETY <br> INTERNATIONAL <br> ORGANIZATION
+                </h4>
+            </div>
+            <div class="body-content">
+                <h5 class="body-head">
+                    Team Monitoring and Support 2020
+                </h5>
+                <div class="body-id-content">
+                    <h4 class="name">{{i.name}} </h4>
+                    <img src="{{i.passport.url}}" class="body-img" alt="">
+                    <center>
+                        <p class="p">Voice of Africa Women for Human Divinity</p>
+                    </center>
+                </div>
+                
+                <center>
+                    <div class="body-content-stomach">
+                        <h4 class="stomach-h4">
+                           {{i.identity_text}}
+                        </h4>
+                        <h2 class="stomach-h2">
+                            SUPPORT
+                        </h2>
+                        <h3 class="stomach-h3">
+                            OBSERVER
+                        </h3>
+                    </div>
+                </center>
+                
+                    <div class="footer">
+                        
+                        <span class="footer-p">
+                            <i>
+                                DIRECTOR CIS
+                            </i>
+                        </span>
+                    </div>
+                
+            </div>
+        </div>
+        {% endfor %}
+
+        
+    </div>
+
+    <button onclick="screenshot()">Generate pdf</button>
+
+
+
+    <script>
+        function screenshot(){
+            html2canvas(document.getElementById('content')).then(function(canvas){
+            
+            var imgdata = canvas.toDataURL('image/png')
+            var doc = new jsPDF()
+            doc.addImage(imgdata,'PNG',100,100)
+            doc.save("sample.pdf")
+            })
+        }
+
+
+    </script>
+
+
+
+
+
+  </head>
+  <body>
+   
+  <div id="progressbar"></div>
+   
+   
+  
+
+    
+</body>
+</html> 
